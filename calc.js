@@ -27,7 +27,12 @@ document.querySelector(".buttons").onclick = (event) => {
   const key = event.target.textContent;
   //если нажата 0-9 или .
   if (digit.includes(key)) {
-    if (b === "" && sign === "") {
+    if (key === "0" && a === "0") {
+      return;
+    } else if (key !== "0" && a === "0") {
+      a = key;
+      out.textContent = a;
+    } else if (b === "" && sign === "") {
       a += key;
       out.textContent = a;
     } else if (a !== "" && b !== "" && finish) {
