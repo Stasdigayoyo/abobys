@@ -4,8 +4,7 @@ let sign = ""; //знак операции
 let finish = false;
 
 const digit = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
-const digitSecond = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-const action = ["-", "+", "X", "/"];
+const action = ["-", "+", "X", "/", "+/-", "%"];
 //экран
 const out = document.querySelector(".calc-screen p");
 function clearAll() {
@@ -27,9 +26,12 @@ document.querySelector(".buttons").onclick = (event) => {
   const key = event.target.textContent;
   //если нажата 0-9 или .
   if (digit.includes(key)) {
+    if (key === "." && a === "") {
+      return key;
+    }
     if (key === "0" && a === "0") {
       return;
-    } else if (key !== "0" && a === "0") {
+    } else if (key === "0" && a === "0") {
       a = key;
       out.textContent = a;
     } else if (b === "" && sign === "") {
@@ -38,6 +40,9 @@ document.querySelector(".buttons").onclick = (event) => {
     } else if (a !== "" && b !== "" && finish) {
       b = key;
       finish = false;
+      out.textContent = b;
+    } else if (key === "0" && b === "0") {
+      b = key;
       out.textContent = b;
     } else {
       b += key;
@@ -52,6 +57,11 @@ document.querySelector(".buttons").onclick = (event) => {
     sign = key;
     out.textContent = sign;
     console.table(a, b, sign);
+  }
+  //нажата +/-
+  if (key === "+/-") {
+    a = -a;
+    out.textContent = a;
   }
   //нажата =
   if (key === "=") {
@@ -68,13 +78,16 @@ document.querySelector(".buttons").onclick = (event) => {
         break;
       case "/":
         if (b === "0") {
-          out.textContent = "Ошибка";
+          out.textContent = "Ты че долбаеб???";
           a = "";
           b = "";
           sign = "";
           return;
         }
         a = a / b;
+        break;
+      case "%":
+        a = a / 100;
         break;
     }
     finish = true;
