@@ -78,7 +78,7 @@ document.querySelector(".buttons").onclick = (event) => {
         break;
       case "/":
         if (b === "0") {
-          out.textContent = "Ты че долбаеб???";
+          out.textContent = "нельзя";
           a = "";
           b = "";
           sign = "";
